@@ -1,0 +1,38 @@
+﻿@model List<Employee_Biodata>
+
+@{
+    ViewData["Title"] = "All Employee";
+}
+
+<div class="text-center">
+    <h1>All Employee</h1>
+    <br />
+    @if (Model != null && Model.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Employee No</th>
+                    <th>Employee Name</th>
+                    <th>Birth Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var employeeBiodata in Model)
+                {
+                    <tr>
+                        <td>@employeeBiodata.employee_no</td>
+                        <td>@employeeBiodata.employee_name</td>
+                        <td>@employeeBiodata.birth_date.ToString("dd/MMM/yyyy")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>Feel free to add employee details in the database.</p>
+    }
+
+</div>
+

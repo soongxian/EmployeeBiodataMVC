@@ -1,0 +1,78 @@
+﻿@model Dynamic_Control
+
+<div>
+    <div class="text-center">
+        <h1>Dynamic Control</h1>
+    </div>
+
+    <form asp-action="GenerateControls" method="post">
+        <div class="form-group" style="padding-top:5px">
+            <label>Select Control Type:</label>
+            <select asp-for="control_type" class="form-control">
+                <option value="textbox">Textbox</option>
+                <option value="checkbox">Checkbox</option>
+                <option value="radio">Radio</option>
+                <option value="button">Button</option>
+                <option value="select">Dropdown</option>
+            </select>
+        </div>
+
+        <div class="form-group" style="padding-top:5px">
+            <label>Number of Controls:</label>
+            <input asp-for="control_no" type="number"
+                   class="form-control" min="1" max="10" />
+        </div>
+
+        <div style="padding-top:5px">
+            <button type="submit" class="btn btn-primary">Generate Controls</button>
+        </div>
+    </form>
+
+    @if (Model.control_generated != null && Model.control_generated.Any())
+    {
+        <div style="padding-top: 10px">
+            <div class="text-center">
+                <h3>Generated Controls:</h3>
+            </div>
+
+            <div class="generated-controls">
+                @for (int i = 0; i < Model.control_generated.Count; i++)
+                {
+                    <div style="padding-top:5px">
+                        @switch (Model.control_type)
+                        {
+                            case "textbox":
+                                <input type="text"
+                                       placeholder="Enter @Model.control_generated[i]" />
+                                break;
+                            case "checkbox":
+                                    <input type="checkbox" />
+                                    <label>
+                                        @Model.control_generated[i]
+                                    </label>
+                                break;
+                            case "radio":
+                                    <input type="radio" />
+                                    <label>
+                                        @Model.control_generated[i]
+                                    </label>
+                                break;
+                            case "button":
+                                <button type="button">
+                                    @Model.control_generated[i]
+                                </button>
+                                break;
+                            case "select":
+                                <select>
+                                    <option>Select @Model.control_generated[i]</option>
+                                    <option>Option 1</option>
+                                    <option>Option 2</option>
+                                </select>
+                                break;
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>
